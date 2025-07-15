@@ -1,51 +1,85 @@
-﻿<div class="my-flex-container">  
-       
-    <div class="flex-card">
-        <img class="card-img" src="https://cagliari.delivery/images/dishes/capriccio_1.jpg">
-        <h4 class="card-name">Capriccio</h4>
-        <div class="card-description"> Сыр моцарелла, Соус "Барбекю", Соус "Кальяри", Пепперони, Овощи гриль, Бекон, Ветчина</div>
-        <div class="card-footer">
-             <div class="card-price">740 &#8381;</div>
-             <div class="card-weight">980 гр.</div>
-             <a href="#" class="button-link">В корзину</a>    
-        </div>
-    </div>
-    
-    
-    <div class="flex-card">
-        <img class="card-img" src="https://cagliari.delivery/images/dishes/xxxl_1.jpg">    
-        <h4 class="card-name">XXXL</h4>
-        <div class="card-description"> Сыр моцарелла, Соус "1000 островов", Куриный рулет, Ветчина, Колбаски охотничьи, Бекон, Сервелат, Огурцы маринованные</div>
-        <div class="card-footer">
-            <div class="card-price">880 &#8381;</div>
-            <div class="card-weight">1440 гр.</div>
-            <a href="#" class="button-link">В корзину</a>    
-        </div>
-    </div>    
-    
-    <div class="flex-card">
-        <img class="card-img" src="https://cagliari.delivery/images/dishes/4_vkusa_1.jpg">
-        <h4 class="card-name">4 вкуса</h4>
-        <div class="card-description"> Соус "1000 островов", Сыр моцарелла, Рулет куриный, Ветчина, Пепперони, Сыр пармезан</div>
-        <div class="card-footer">
-            <div class="card-price">530 &#8381;</div>
-            <div class="card-weight">540 гр.</div>
-            <a href="#" class="button-link">В корзину</a>    
-        </div>
-    </div>
-    
-    
-    <div class="flex-card">
-        <img class="card-img" src="https://cagliari.delivery/images/dishes/amazonka_1.jpg">
-        <h4 class="card-name">Амазонка</h4>
-        <div class="card-description"> Соус "Томатный", Сыр моцарелла, Куриная грудка, Брокколи, Огурцы маринованные </div>
-        <div class="card-footer">
-             <div class="card-price">550 &#8381;</div>
-             <div class="card-weight">600 гр.</div>
-             <a href="#" class="button-link">В корзину</a>
-    
-        </div>
-    </div>
-       
-  
-</div>
+﻿<div class="my-flex-container"></div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>    
+    const pizzas = [
+        {
+            name: "Capriccio",
+            image: "https://cagliari.delivery/images/dishes/capriccio_1.jpg",
+            ingredients: "Сыр моцарелла, Соус \"Барбекю\", Соус \"Кальяри\", Пепперони, Овощи гриль, Бекон, Ветчина",
+            price: 740,
+            weight: "980"
+        },
+        {
+            name: "XXXL",
+            image: "https://cagliari.delivery/images/dishes/xxxl_1.jpg",
+            ingredients: "Сыр моцарелла, Соус \"1000 островов\", Куриный рулет, Ветчина, Колбаски охотничьи, Бекон, Сервелат, Огурцы маринованные",
+            price: 880,
+            weight: "1440"
+        },
+        {
+            name: "4 вкуса",
+            image: "https://cagliari.delivery/images/dishes/4_vkusa_1.jpg",
+            ingredients: "Соус \"1000 островов\", Сыр моцарелла, Рулет куриный, Ветчина, Пепперони, Сыр пармезан",
+            price: 530,
+            weight: "540"
+        },
+        {
+            name: "Амазонка",
+            image: "https://cagliari.delivery/images/dishes/amazonka_1.jpg",
+            ingredients: "Соус \"Томатный\", Сыр моцарелла, Куриная грудка, Брокколи, Огурцы маринованные",
+            price: 550,
+            weight: "600"
+        },
+        {
+            name: 'БананZZа',
+            image: 'https://cagliari-pizza.ru/images/dishes/bananzza_1.jpg',
+            ingredients: 'Бананы, Соус "Гавайский", Сыр моцарелла, Ананас, Шоколад молочный, Кокос/миндаль, Топпинг клубничный',
+            price: 420,
+            weight: "520"
+        },
+        {
+            name: 'Барбекю',
+            image: 'https://cagliari-pizza.ru/images/dishes/barbeq_1.jpg',
+            ingredients: 'Соус "Томатный", Сыр моцарелла, Ветчина, Бекон, Пепперони, Соус "Барбекю", Томаты, Перец болгарский, Лук маринованный',
+            price: 450,
+            weight: "590"
+        },
+        {
+            name: 'Буритто',
+            image: 'https://cagliari-pizza.ru/images/dishes/buritto_1.jpg',
+            ingredients: 'Соус "Томатный острый", Сыр моцарелла, Куриная грудка, Кукуруза, Фасоль консервированная, Соус сырный "Пармеджано", Перец болгарский, Лук маринованный',
+            price: 450,
+            weight: "550"
+        },
+        {
+            name: 'Гавайская',
+            image: 'https://cagliari-pizza.ru/images/dishes/hawai_1.jpg',
+            ingredients: 'Ветчина, Соус "Гавайский", Сыр моцарелла, Ананас, Перец болгарский',
+            price: 450,
+            weight: "590"
+        }
+    ];
+
+    function generatePizzaCards() {
+        const container = $(".my-flex-container");
+        container.empty();
+
+        pizzas.forEach(pizza => {
+            const cardHtml = `
+                <div class="flex-card">
+                    <img class="card-img" src="${pizza.image}">
+                    <h4 class="card-name">${pizza.name}</h4>
+                    <div class="card-ingredients">${pizza.ingredients}</div>
+                    <div class="card-footer">
+                        <div class="card-price">${pizza.price} &#8381;</div>
+                        <div class="card-weight">${pizza.weight} гр.</div>
+                        <a href="#" class="button-link">В корзину</a>
+                    </div>
+                </div>
+            `;
+            container.append(cardHtml);
+        });
+    }
+
+    generatePizzaCards();
+</script>

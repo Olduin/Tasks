@@ -56,10 +56,10 @@ body {
     font-weight: bold;
     color:grey;
 }
-.card-description {
+.card-ingredients {
     font-family: Calibri;
     font-size: 15px;
-    height: 120px;
+    height: 100px;
 }
 
 .card-footer {
