@@ -1,6 +1,42 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿@model List<PizzaModel>  
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="my-flex-container"></div>
+@section scripts
+{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>       
+
+        function generatePizzaCards() {
+            const container = $(".my-flex-container");
+            container.empty();
+
+            $ajax.({
+                url: "/home/PizzaGetAll",
+                type: "GET",
+                dataType: "json",
+                success: function(data){
+                    var pizzas = JSON.parse(data)
+
+                }
+            });
+
+            pizzas.forEach(pizza => {
+                const cardHtml = `
+                    <div class="flex-card">
+                        <img class="card-img" src="${pizza.image}">
+                        <h4 class="card-name">${pizza.name}</h4>
+                        <div class="card-ingredients">${pizza.ingredients}</div>
+                        <div class="card-footer">
+                            <div class="card-price">${pizza.price} &#8381;</div>
+                            <div class="card-weight">${pizza.weight} гр.</div>
+                            <a href="#" class="button-link">В корзину</a>
+                        </div>
+                    </div>
+                `;
+                container.append(cardHtml);
+            });
+        }
+
+        generatePizzaCards();
+    </script>
+}
