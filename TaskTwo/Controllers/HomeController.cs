@@ -15,6 +15,14 @@ namespace TaskTwo.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
+        public JsonResult PizzaGetAll ()
+        {
+            var model = db.PizzaGetAll();
+
+            return Json(model);
+        }
+
         public IActionResult Index()
         {
             var model = db.PizzaGetAll();
@@ -23,7 +31,7 @@ namespace TaskTwo.Controllers
 
         public IActionResult Privacy()
         {
-            return View();
+            return View(PizzaGetAll());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
