@@ -8,9 +8,9 @@
     @foreach(var item in Model)
     {
         <div class="flex-card">
-            <img class="card-img" src="@item.Image">
-            <h4 class="card-name">@item.Name</h4>
-            <div class="card-description"> @item.Ingredients </div>
+            <img onclick="imgClick()" class="card-img" src="@item.Image">
+            <a id ="search1" href="Home/Details/@item.Id" class="card-name">@item.Name</a>
+            <div class="card-ingredients"> @item.Ingredients </div>
             <div class="card-footer">
                 <div class="card-price">@item.Price &#8381;</div>
                 <div class="card-weight">@item.Weight гр.</div>
@@ -20,7 +20,11 @@
     }
    
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+<script>
+
+        function imgClick() {
+            var href1 = $('#search1').attr('href')
+            location.href= href1
+        }
+</script>

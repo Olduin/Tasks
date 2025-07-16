@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Details";
+}
+@model PizzaModel;
+
+<div class="flex-card">
+    <img class="card-img" src="@Model.Image">
+    <a asp-action="Details" asp-route-id="Id" class="card-name">@Model.Name</a>
+    <div class="card-ingredients"> @Model.Ingredients </div>
+    <div class="card-footer">
+        <div class="card-price">@Model.Price &#8381;</div>
+        <div class="card-weight">@Model.Weight гр.</div>
+        <a href="#" class="button-link">В корзину</a>
+    </div>
+</div>
+   
+
