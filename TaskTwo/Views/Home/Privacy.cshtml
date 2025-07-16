@@ -1,4 +1,4 @@
-﻿@model List<PizzaModel>  
+﻿
 
 <div class="my-flex-container"></div>
 @section scripts
@@ -6,19 +6,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>       
 
-        function generatePizzaCards() {
+        function generatePizzaCards(pizzas) {
             const container = $(".my-flex-container");
             container.empty();
-
-            $ajax.({
-                url: "/home/PizzaGetAll",
-                type: "GET",
-                dataType: "json",
-                success: function(data){
-                    var pizzas = JSON.parse(data)
-
-                }
-            });
 
             pizzas.forEach(pizza => {
                 const cardHtml = `
@@ -37,6 +27,20 @@
             });
         }
 
-        generatePizzaCards();
+
+        $.ajax({
+            url: "/Home/PizzaGetAll",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                generatePizzaCards(data);
+
+            },
+            error: function () {
+                console.error("Ошибка при получении списка пицц");
+            }
+        });
+
+       
     </script>
 }
