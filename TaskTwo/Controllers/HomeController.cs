@@ -7,6 +7,7 @@ namespace TaskTwo.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IRepository _repository;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -15,7 +16,8 @@ namespace TaskTwo.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var pizzas = _repository.PizzaGetAll();
+            return View(pizzas);
         }
 
         public IActionResult Privacy()

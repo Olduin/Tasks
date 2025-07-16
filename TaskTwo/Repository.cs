@@ -2,6 +2,10 @@
 
 namespace TaskTwo
 {
+    public interface IRepository
+    {
+        List<PizzaModel> PizzaGetAll();
+    }
     public class Repository
     {
         List<PizzaModel> pizzas = new List<PizzaModel>()
