@@ -1,6 +1,24 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using TaskTwo.Models;
+@model List<PizzaModel>;
+
+<div class="my-flex-container">
+    @foreach(var item in Model)
+    {
+        <div class="flex-card">
+            <img class="card-img" src="@item.Image">
+            <h4 class="card-name">@item.Name</h4>
+            <div class="card-description"> @item.Ingredients </div>
+            <div class="card-footer">
+                <div class="card-price">@item.Price &#8381;</div>
+                <div class="card-weight">@item.Weight гр.</div>
+                <a href="#" class="button-link">В корзину</a>
+            </div>
+        </div>
+    }
+   
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>

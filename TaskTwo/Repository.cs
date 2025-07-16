@@ -2,11 +2,11 @@
 
 namespace TaskTwo
 {
-    public interface IRepository
+    public interface IRepository<T> : IDisposable where T : class
     {
-        List<PizzaModel> PizzaGetAll();
+        List<T> PizzaGetAll();
     }
-    public class Repository
+    public class Repository: IRepository<PizzaModel>
     {
         List<PizzaModel> pizzas = new List<PizzaModel>()
         {
@@ -84,6 +84,11 @@ namespace TaskTwo
             }
 
         };
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
 
         public List<PizzaModel> PizzaGetAll()
         {
