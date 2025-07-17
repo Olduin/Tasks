@@ -8,8 +8,8 @@
     @foreach(var item in Model)
     {
         <div class="flex-card">
-            <img onclick="imgClick()" class="card-img" src="@item.Image">
-            <a id ="search1" href="Home/Details/@item.Id" class="card-name">@item.Name</a>
+            <img id="my-img" class="card-img" data-id="@item.Id" src="@item.Image">
+            <a class="card-name"  href="Home/Details/@item.Id">@item.Name</a>
             <div class="card-ingredients"> @item.Ingredients </div>
             <div class="card-footer">
                 <div class="card-price">@item.Price &#8381;</div>
@@ -18,13 +18,21 @@
             </div>
         </div>
     }
-   
+</div>   
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-        function imgClick() {
-            var href1 = $('#search1').attr('href')
-            location.href= href1
+    $('.card-img').on('click', function(){
+        var pizzaId = $(this).data('id');
+        if (pizzaId){
+            var url='Home/Details/' + encodeURIComponent(pizzaId);
+
+            location.href = url;
         }
+   
+        
+    });
+
+   
 </script>

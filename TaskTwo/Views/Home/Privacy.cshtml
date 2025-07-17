@@ -1,30 +1,19 @@
-﻿@model List<PizzaModel>  
-
-<div class="my-flex-container"></div>
+﻿<div class="my-flex-container"></div>
 @section scripts
 {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>       
+    <script>
 
-        function generatePizzaCards() {
+
+        function generatePizzaCards(pizzas) {
             const container = $(".my-flex-container");
             container.empty();
-
-            $ajax.({
-                url: "/home/PizzaGetAll",
-                type: "GET",
-                dataType: "json",
-                success: function(data){
-                    var pizzas = JSON.parse(data)
-
-                }
-            });
 
             pizzas.forEach(pizza => {
                 const cardHtml = `
                     <div class="flex-card">
-                        <img class="card-img" src="${pizza.image}">
-                        <h4 class="card-name">${pizza.name}</h4>
+                        <img class="card-img" data-id="${pizza.id}" src="${pizza.image}">
+                        <a class="card-name" href="Details/${pizza.id}" >${pizza.name}</a>
                         <div class="card-ingredients">${pizza.ingredients}</div>
                         <div class="card-footer">
                             <div class="card-price">${pizza.price} &#8381;</div>
@@ -37,6 +26,30 @@
             });
         }
 
-        generatePizzaCards();
+        $('.card-img').on('click', function(){
+            var pizzaId = $(this).data('id');
+            if (pizzaId){
+                var url='Details/' + encodeURIComponent(pizzaId);
+
+                location.href = url;
+            }
+
+
+        });
+
+        $.ajax({
+            url: "/Home/PizzaGetAll",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                generatePizzaCards(data);
+
+            },
+            error: function () {
+                console.error("Ошибка при получении списка пицц");
+            }
+        });
+
+
     </script>
 }
