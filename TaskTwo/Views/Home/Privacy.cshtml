@@ -24,9 +24,8 @@
                 `;
                 container.append(cardHtml);
             });
-        }
 
-        $('.card-img').on('click', function(){
+            $('.card-img').on('click', function(){
             var pizzaId = $(this).data('id');
             if (pizzaId){
                 var url='Details/' + encodeURIComponent(pizzaId);
@@ -36,6 +35,9 @@
 
 
         });
+        }
+
+        
 
         $.ajax({
             url: "/Home/PizzaGetAll",
