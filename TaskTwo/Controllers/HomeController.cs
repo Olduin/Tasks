@@ -29,6 +29,12 @@ namespace TaskTwo.Controllers
             return View(model);
         }
 
+        public IActionResult Details(int id)
+        {
+            var model = db.FindById(id);
+            return View(model);
+        }
+
         public IActionResult Privacy()
         {
             return View(PizzaGetAll());

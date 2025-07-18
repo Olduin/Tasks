@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewData["Title"] = "Home Page";
 }
 @using TaskTwo.Models;
@@ -8,8 +8,9 @@
     @foreach(var item in Model)
     {
         <div class="flex-card">
-            <img class="card-img" src="@item.Image">
-            <h4 class="card-name">@item.Name</h4>
+            <img id="my-img" class="card-img" data-id="@item.Id" src="@item.Image">
+            <a class="card-name"  href="Home/Details/@item.Id">@item.Name</a>
+
             <div class="card-ingredients"> @item.Ingredients </div>
             <div class="card-footer">
                 <div class="card-price">@item.Price &#8381;</div>
@@ -18,9 +19,17 @@
             </div>
         </div>
     }
-   
+</div>   
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $('.card-img').on('click', function(){
+        var pizzaId = $(this).data('id');
+        if (pizzaId){
+            var url='Home/Details/' + encodeURIComponent(pizzaId);
+
+            location.href = url;
+        } 
+        
+    });   
+</script>

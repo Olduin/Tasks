@@ -5,6 +5,8 @@ namespace TaskTwo
     public interface IRepository<T> : IDisposable where T : class
     {
         List<T> PizzaGetAll();
+        T FindById(int id);
+        
     }
     public class Repository: IRepository<PizzaModel>
     {
@@ -93,6 +95,11 @@ namespace TaskTwo
         public List<PizzaModel> PizzaGetAll()
         {
             return pizzas;
+        }
+
+        public PizzaModel FindById(int id)
+        {
+            return pizzas.FirstOrDefault(p => p.Id == id);
         }
     }
 }
