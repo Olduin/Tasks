@@ -18,9 +18,24 @@ namespace TaskTwo.Controllers
         [HttpGet]
         public JsonResult PizzaGetAll ()
         {
-            var model = db.PizzaGetAll();
+            var pizzas = db.PizzaGetAll();
+            if (pizzas == null)
+            {
+                return Json(new { error = "Пицца не найдена" });
+            }
 
-            return Json(model);
+            return Json(pizzas);
+        }
+
+        [HttpGet]
+        public JsonResult GetPizzaById(int id)
+        {
+            var pizza = db.FindById(id);
+            if (pizza == null)
+            {
+                return Json(new { error = "Пицца не найдена" });
+            }
+            return Json(pizza);
         }
 
         public IActionResult Index()
