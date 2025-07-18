@@ -15,6 +15,7 @@ namespace TaskTwo.Controllers
             _logger = logger;
         }
 
+
         [HttpGet]
         public JsonResult PizzaGetAll ()
         {
@@ -40,8 +41,19 @@ namespace TaskTwo.Controllers
 
         public IActionResult Index()
         {
-            var model = db.PizzaGetAll();
-            return View(model);
+            _logger.LogInformation("Открыта главная страница");
+            try
+            {
+                var model = db.PizzaGetAll();
+                return View(model);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка при выполнения Index");
+                throw;
+            }
+
+           
         }
 
         public IActionResult IndexNew()
