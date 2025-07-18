@@ -4,8 +4,6 @@
 @using TaskTwo.Models;
 @model List<PizzaModel>;
 
-
-
 <div class="my-flex-container">
     @foreach(var item in Model){
         <div class="flex-card">
@@ -40,53 +38,55 @@
     </div>
 
 
+ @section scripts
+{
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script>     
-        $('.card-name').on('click', function (e) {
-            const $card = $(this).closest('.flex-card');
-            const pizza = {
-                name: $(this).text(),
-                image: $card.find('.card-img').attr('src'),
-                ingredients: $card.find('.card-ingredients').text(),
-                price: $card.find('.card-price').text(),
-                weight: $card.find('.card-weight').text()
-            };
+            $('.card-name').on('click', function (e) {
+                const $card = $(this).closest('.flex-card');
+                const pizza = {
+                    name: $(this).text(),
+                    image: $card.find('.card-img').attr('src'),
+                    ingredients: $card.find('.card-ingredients').text(),
+                    price: $card.find('.card-price').text(),
+                    weight: $card.find('.card-weight').text()
+                };
 
-            ShowPizza(pizza);
-        });
-
-
-    
-
-        $('.card-img').on('click', function (e) {
-            const pizzaId = $(this).data('id');
-
-            $.ajax({
-                url: '/Home/GetPizzaById',
-                type: 'GET',
-                data: { id: pizzaId },
-                success: function (pizza) {
-                    if (pizza.error) {
-                        alert(pizza.error);
-                        return;
-                    }
-                    ShowPizza(pizza); 
-                },
-                error: function () {
-                    alert('Ошибка при получении данных о пицце.');
-                }
+                ShowPizza(pizza);
             });
-        });
 
-        function ShowPizza(pizza) {
-            $('#pizzaModalLabel').text(pizza.name);
-            $('#modalImg').attr('src', pizza.image);
-            $('#modalIngredients').text(pizza.ingredients);
-            $('#modalPrice').text(pizza.price);
-            $('#modalWeight').text(pizza.weight);
-            $('#pizzaModal').modal('show');
-        }
-               
-</script>
+
+            $('.card-img').on('click', function (e) {
+                const pizzaId = $(this).data('id');
+                $.ajax({
+                    url: '/Home/GetPizzaById',
+                    type: 'GET',
+                    dataType:"json",
+                    data: { id: pizzaId },
+                    success: function (pizza) {
+                        if (pizza.error) {
+                            alert(pizza.error);
+                            return;
+                        }
+                        ShowPizza(pizza);
+                    },
+                    error: function () {
+                        alert('Ошибка при получении данных о пицце.');
+                    }
+                })
+            });
+
+            function ShowPizza(pizza) {
+                $('#pizzaModalLabel').text(pizza.name);
+                $('#modalImg').attr('src', pizza.image);
+                $('#modalIngredients').text(pizza.ingredients);
+                $('#modalPrice').text(pizza.price);
+                $('#modalWeight').text(pizza.weight);
+                $('#pizzaModal').modal('show');
+            }
+
+        </script>
+}   `
+   
