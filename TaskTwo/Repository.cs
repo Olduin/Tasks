@@ -10,6 +10,13 @@ namespace TaskTwo
     }
     public class Repository: IRepository<PizzaModel>
     {
+        private readonly ILogger<Repository> _logger;
+
+        public Repository(ILogger<Repository> logger)
+        {
+            _logger = logger;
+        }
+
         List<PizzaModel> pizzas = new List<PizzaModel>()
         {
             new PizzaModel()
@@ -85,21 +92,32 @@ namespace TaskTwo
                 Weight = "590"
             }
 
-        };
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
+        };               
 
         public List<PizzaModel> PizzaGetAll()
         {
+            _logger.LogInformation("Выполнен запрос на получение всех пицц. Количество: {Count}", pizzas.Count);
             return pizzas;
         }
 
         public PizzaModel FindById(int id)
         {
-            return pizzas.FirstOrDefault(p => p.Id == id);
+            _logger.LogInformation("Выполнен запрос на получение пиццы по ID: {Id}", id);
+            var pizza = pizzas.FirstOrDefault(p => p.Id == id);
+            if (pizza == null)
+            {
+                _logger.LogWarning("Пицца с ID {Id} не найдена", id);
+            }
+            else
+            {
+                _logger.LogInformation("Пицца найдена: {Name}, Цена: {Price}", pizza.Name, pizza.Price);
+            }
+            return pizza;
+        }
+
+        public void Dispose()
+        {
+            _logger.LogInformation("Repository disposed");
         }
     }
 }
