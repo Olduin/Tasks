@@ -1,21 +1,24 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Security.Cryptography.X509Certificates;
+using TaskTwo.Models;
+using TaskTwo;
 using TaskTwo.Models.Logger;
 
 internal class Program
 {
     
-
     private static void Main(string[] args)
     {       
         var builder = WebApplication.CreateBuilder(args);
                 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
-        //builder.Logging.ClearProviders();
-        //builder.Logging.AddConsole();
-       //builder.Logging.AddFile("Logger/app.log");
+        builder.Services.AddScoped<IRepository<PizzaModel>, Repository>();
+
+        builder.Logging.ClearProviders();
+        builder.Logging.AddConsole();
+        builder.Logging.AddFile("C:/Temp/TestProject/app.log");
 
         var app = builder.Build();
 
@@ -27,12 +30,12 @@ internal class Program
             app.UseHsts();
         }
 
-        app.MapGet("/", (ILogger<Program> logger) =>
-        {
-            logger.LogInformation("hello");
-            return "hello world";
-        }
-        );
+        //app.MapGet("/", (ILogger<Program> logger) =>
+        //{
+        //    logger.LogInformation("hello");
+        //    return "hello world";
+        //}
+        //);
         
 
         app.UseHttpsRedirection();
