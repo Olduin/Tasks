@@ -1,16 +1,16 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Security.Cryptography.X509Certificates;
-using TaskTwo.Models;
-using TaskTwo;
-using TaskTwo.Models.Logger;
+using TaskThree.Models;
+using TaskThree;
+
 
 internal class Program
-{    
+{
     private static void Main(string[] args)
-    {       
+    {
         var builder = WebApplication.CreateBuilder(args);
-                
+
         // Add services to the container.
         builder.Services.AddControllersWithViews();
         builder.Services.AddScoped<IRepository<PizzaModel>, Repository>();
@@ -27,7 +27,7 @@ internal class Program
             app.UseExceptionHandler("/Home/Error");
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
-        }              
+        }
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
@@ -36,7 +36,7 @@ internal class Program
 
         app.UseAuthorization();
 
-       
+
 
         app.MapControllerRoute(
             name: "default",
