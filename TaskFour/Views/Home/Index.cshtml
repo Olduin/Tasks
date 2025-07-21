@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+@using TaskFour.Models;
+@model List<PizzaModel>;
+<div>
+    <a class="button-link-Edit">Добавить пиццу</a>
+
+    <div class="my-flex-container">
+        @foreach (var item in Model)
+        {
+            <div class="flex-card">
+                <img id="my-img" class="card-img" data-id="@item.Id" src="@item.Image">
+                <a class="card-name" href="Home/Details/@item.Id">@item.Name</a>
+
+                <div class="card-ingredients"> @item.Ingredients </div>
+                <div class="card-footer">
+                    <div class="card-price">@item.Price &#8381;</div>
+                    <div class="card-weight">@item.Weight гр.</div>
+                    <a href="#" class="button-link">В корзину</a>
+                    <a data-id="@item.Id" class="button-link-Edit">Изменить</a>
+                    <a data-id="@item.Id" class="button-link-Delete">Удалить</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+   
+@section scripts
+{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('.card-img').on('click', function(){
+            var pizzaId = $(this).data('id');
+            if (pizzaId){
+                var url='Home/Details/' + encodeURIComponent(pizzaId);
+
+                location.href = url;
+            }
+
+        });
+  
+        $('.button-link-Edit').on('click', function(){
+                var pizzaId = $(this).data('id');
+            if (pizzaId){
+                var url='Home/PizzaEdit/' + encodeURIComponent(pizzaId);
+
+                location.href = url;
+            }
+            else{
+                 location.href = 'Home/PizzaEdit/';
+            }
+        });
+
+        $('.button-link-Delete').on('click', function (e) {
+                const pizzaId = $(this).data('id');
+                let IsDelete = confirm("Удалить элемент?");
+                if (IsDelete == true){
+                     $.ajax({
+                    url: '/Home/PizzaDelete',
+                    type: 'POST',
+                    data: { id: pizzaId },
+                    success: function () {
+                        window.location.reload();
+                    },
+                    error: function () {
+                        alert('Ошибка при получении данных о пицце.');
+                    }
+                })
+                }               
+        })             
+    </script>
+
+}

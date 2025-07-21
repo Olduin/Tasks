@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using TaskFour.Models;
+@model List<PizzaModel>;
+
+<a class="button-link-Edit">Добавить пиццу</a>
+
+<div class="my-flex-container">
+    @foreach(var item in Model){
+        <div class="flex-card">
+            <img id="my-img" class="card-img" data-id="@item.Id" src="@item.Image">
+            <div id ="open-modal" data-id="@item.Id" class="card-name" >@item.Name</div>
+            <div class="card-ingredients"> @item.Ingredients </div>
+            <div class="card-footer">
+                <div class="card-price">@item.Price &#8381;</div>
+                <div class="card-weight">@item.Weight гр.</div>
+                <a href="#" class="button-link">В корзину</a>
+                <a data-id="@item.Id" class="button-link-Edit">Изменить</a>
+                <a data-id="@item.Id" class="button-link-Delete">Удалить</a>
+            </div>
+        </div>
+    }
+
+    <!-- Модальное окно -->
+    <div class="modal fade" id="pizzaModal" tabindex="-1" role="dialog" aria-labelledby="pizzaModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pizzaModalLabel">Пицца</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="modalImg" src="" class="img-fluid mb-3" />
+                    <p id="modalIngredients"></p>
+                    <p><strong>Цена:</strong> <span id="modalPrice"></span> &#8381;</p>
+                    <p><strong>Вес:</strong> <span id="modalWeight"></span> гр.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ @section scripts
+{
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            $('.card-name').on('click', function (e) {
+                const $card = $(this).closest('.flex-card');
+                const pizza = {
+                    name: $(this).text(),
+                    image: $card.find('.card-img').attr('src'),
+                    ingredients: $card.find('.card-ingredients').text(),
+                    price: $card.find('.card-price').text(),
+                    weight: $card.find('.card-weight').text()
+                };
+                ShowPizza(pizza);
+            });
+
+
+            $('.card-img').on('click', function (e) {
+                const pizzaId = $(this).data('id');
+                $.ajax({
+                    url: '/Home/GetPizzaById',
+                    type: 'GET',
+                    dataType:"json",
+                    data: { id: pizzaId },
+                    success: function (pizza) {
+                        if (pizza.error) {
+                            alert(pizza.error);
+                            return;
+                        }
+                        ShowPizza(pizza);
+                    },
+                    error: function () {
+                        alert('Ошибка при получении данных о пицце.');
+                    }
+                })
+            });
+
+            function ShowPizza(pizza) {
+                $('#pizzaModalLabel').text(pizza.name);
+                $('#modalImg').attr('src', pizza.image);
+                $('#modalIngredients').text(pizza.ingredients);
+                $('#modalPrice').text(pizza.price);
+                $('#modalWeight').text(pizza.weight);
+                $('#pizzaModal').modal('show');
+            }               
+                       
+            
+            $('.button-link-Edit').on('click', function(){
+                    var pizzaId = $(this).data('id');
+                if (pizzaId){
+                    var url='PizzaEdit/' + encodeURIComponent(pizzaId);
+
+                    location.href = url;
+                }
+                else{
+                     location.href = 'PizzaEdit/';
+                }
+            });
+
+                 $('.button-link-Delete').on('click', function (e) {
+                    const pizzaId = $(this).data('id');
+                    let IsDelete = confirm("Удалить элемент?");
+                    if (IsDelete == true){
+                         $.ajax({
+                        url: '/Home/PizzaDelete',
+                        type: 'POST',
+                        data: { id: pizzaId },
+                        success: function () {
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert('Ошибка при получении данных о пицце.');
+                        }
+                    })
+                    }
+            })
+
+        </script>
+}   
+   
