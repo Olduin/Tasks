@@ -18,6 +18,8 @@
                     <div class="card-price">@item.Price &#8381;</div>
                     <div class="card-weight">@item.Weight гр.</div>
                     <a href="#" class="button-link">В корзину</a>
+                    <a data-id="@item.Id" class="button-link-Edit">Изменить</a>
+                    <a data-id="@item.Id" class="button-link-Delete">Удалить</a>
                 </div>
             </div>
         }
@@ -40,10 +42,29 @@
     </script>
 
     <script>
-        $('.button-link-Edit').on('click', function(){            
-                var url='Home/PizzaEdit/';
-                location.href = url;           
+        $('.button-link-Edit').on('click', function(){
+                var pizzaId = $(this).data('id');
+            if (pizzaId){
+                var url='Home/PizzaEdit/' + encodeURIComponent(pizzaId);
 
+                location.href = url;
+            }
+            else{
+                 location.href = 'Home/PizzaEdit/';
+            }
+        });
+    </script>
+    <script>
+        $('.button-link-Delete').on('click', function(){
+                var pizzaId = $(this).data('id');
+            if (pizzaId){
+                var url='Home/PizzaEdit/' + encodeURIComponent(pizzaId);
+
+                location.href = url;
+            }
+            else{
+                 location.href = 'Home/PizzaEdit/';
+            }
         });
     </script>
 

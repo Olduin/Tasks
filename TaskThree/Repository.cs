@@ -6,8 +6,8 @@ namespace TaskThree
     public interface IRepository<T> : IDisposable where T : class
     {
         List<T> PizzaGetAll();
-        T PizzaGetById(int id);            
-        void PizzaDelete(int id);
+        T PizzaGetById(int? id);            
+        void PizzaDelete(int? id);
         void PizzaAdd(T item);
         void PizzaUpdate(T item);
         void Save();
@@ -32,7 +32,7 @@ namespace TaskThree
             return pizzas;
         }
 
-        public PizzaModel PizzaGetById(int id)
+        public PizzaModel PizzaGetById(int? id)
         {
             _logger.LogInformation("Выполнен запрос на получение пиццы по ID: {Id}", id);
             var pizza = _pizzaContext.Pizzas.FirstOrDefault(p => p.Id == id);
@@ -49,6 +49,7 @@ namespace TaskThree
 
         public void PizzaAdd(PizzaModel pizza)
         {
+           
             _pizzaContext.Pizzas.Add(pizza);
         }
 
@@ -57,7 +58,7 @@ namespace TaskThree
             _pizzaContext.Entry(pizza).State = EntityState.Modified;            
         }
 
-        public void PizzaDelete(int id)
+        public void PizzaDelete(int? id)
         {
             var pizza = PizzaGetById(id);
             if (pizza != null) 

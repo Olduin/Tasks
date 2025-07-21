@@ -109,10 +109,29 @@ body {
     cursor: pointer;
     border-radius: 20px;
 }
+
 .button-link-Edit:hover {
     background-color: white;
     border-color: #80c142;
     color: #80c142;
+}
+
+.button-link-Delete {
+    border: 2px solid;
+    display: block;
+    padding: 10px 20px;
+    background-color: darkred;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.button-link-Delete :hover {
+    background-color: white;
+    border-color: darkred;
+    color: darkred;
 }
 
 input:invalid {

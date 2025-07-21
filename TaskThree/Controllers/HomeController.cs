@@ -114,40 +114,84 @@ namespace TaskThree.Controllers
             return View(PizzaGetAll());
         }
 
-        public IActionResult PizzaEdit()
+        [HttpGet]
+        public IActionResult PizzaEdit(int? id)
         {
-            return View();
+            PizzaModel pizza = new PizzaModel();
+            if (id != null)
+            {
+                pizza = _repository.PizzaGetById(id);
+            }
+            return View(pizza);
+           
         }
 
-        public IActionResult PizzaEdit(int id)
-        {
-            var pizza = _repository.PizzaGetById(id);
-            return View(pizza);
-        }
+        //[HttpGet]
+        //public IActionResult PizzaEdit(int? id)
+        //{
+        //    PizzaModel pizza = new PizzaModel();
+        //    if (id.HasValue)
+        //    {
+        //        Pizza item = _repository.PizzaGetById(id);
+        //        if (item == null)
+        //        {
+        //            pizza = new PizzaModel(item)
+        //            {
+        //                Id = item.Id,
+        //                Name = item.Name,
+        //                Image = item.Image,
+        //                Ingredients = item.Ingredients,
+        //                Price = item.Price,
+        //                Weight = item.Weight
+        //            };
+        //        }
+        //    }
+
+        //    return View(pizza);
+        //}
 
         [HttpPost]
         public IActionResult PizzaEdit(PizzaModel pizza)
         {
             if (ModelState.IsValid)
             {
-                _repository.PizzaUpdate(pizza);
+                if (pizza.Id.HasValue)
+                {
+                    //Обновление
+                    var _item = _repository.PizzaGetById(pizza.Id.Value);
+                    if (_item != null)
+                    {
+                        _item.Name = pizza.Name;
+                        _item.Ingredients = pizza.Ingredients;
+                        _item.Image = pizza.Image;
+                        _item.Weight = pizza.Weight;
+                        _item.Price = pizza.Price;                        
+                    }               
+                }
+                else
+                {
+                    //Добавление
+                    var _newItem = new PizzaModel(pizza);
+                    _repository.PizzaAdd(_newItem);                    
+                }
                 _repository.Save();
-                return RedirectToAction("Index");
-            }
+                return RedirectToAction("Index");  
+               
+            } 
             return View(pizza);
         }
 
-        [HttpPost]
-        public IActionResult PizzaCreate(PizzaModel pizza)
-        {
-            if (ModelState.IsValid)
-            {
-                _repository.PizzaAdd(pizza);
-                _repository.Save();
-                return RedirectToAction("Index");
-            }
-            return View(pizza);
-        }
+        //[HttpPost]
+        //public IActionResult PizzaCreate(PizzaModel pizza)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _repository.PizzaAdd(pizza);
+        //        _repository.Save();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(pizza);
+        //}
 
         [HttpGet]
         public ActionResult PizzaDelete(int id)

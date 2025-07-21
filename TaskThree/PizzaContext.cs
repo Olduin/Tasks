@@ -24,11 +24,11 @@ public partial class PizzaContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Pizza>(entity =>
+        modelBuilder.Entity<PizzaModel>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Pizzas__3214EC075CEC0408");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Image).HasMaxLength(255);
             entity.Property(e => e.Name).HasMaxLength(100);
         });
