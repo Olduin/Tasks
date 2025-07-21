@@ -61,7 +61,7 @@
                     type: 'POST',
                     data: { id: pizzaId },
                     success: function () {
-
+                        window.location.reload();
                     },
                     error: function () {
                         alert('Ошибка при получении данных о пицце.');

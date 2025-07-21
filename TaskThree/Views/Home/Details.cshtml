@@ -3,10 +3,10 @@
 }
 @model PizzaModel;
 
-<div class="flex-card">
+<div class="pizza-details-card">
     <img class="card-img" src="@Model.Image">
-    <h4 class="card-name">@Model.Name</h4>
-    <div class="card-ingredients"> @Model.Ingredients </div>
+    <h4 class="pizza-title">@Model.Name</h4>
+    <div class="pizza-ingredient"> @Model.Ingredients </div>
     <div class="card-footer">
         <div class="card-price">@Model.Price &#8381;</div>
         <div class="card-weight">@Model.Weight гр.</div>
@@ -14,4 +14,6 @@
     </div>
 </div>
    
+
+
 
