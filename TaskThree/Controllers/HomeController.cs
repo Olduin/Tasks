@@ -124,31 +124,7 @@ namespace TaskThree.Controllers
             }
             return View(pizza);
            
-        }
-
-        //[HttpGet]
-        //public IActionResult PizzaEdit(int? id)
-        //{
-        //    PizzaModel pizza = new PizzaModel();
-        //    if (id.HasValue)
-        //    {
-        //        Pizza item = _repository.PizzaGetById(id);
-        //        if (item == null)
-        //        {
-        //            pizza = new PizzaModel(item)
-        //            {
-        //                Id = item.Id,
-        //                Name = item.Name,
-        //                Image = item.Image,
-        //                Ingredients = item.Ingredients,
-        //                Price = item.Price,
-        //                Weight = item.Weight
-        //            };
-        //        }
-        //    }
-
-        //    return View(pizza);
-        //}
+        }        
 
         [HttpPost]
         public IActionResult PizzaEdit(PizzaModel pizza)
@@ -180,34 +156,20 @@ namespace TaskThree.Controllers
             } 
             return View(pizza);
         }
-
-        //[HttpPost]
-        //public IActionResult PizzaCreate(PizzaModel pizza)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _repository.PizzaAdd(pizza);
-        //        _repository.Save();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(pizza);
-        //}
-
-        [HttpGet]
-        public ActionResult PizzaDelete(int id)
+          
+        [HttpPost]
+        public ActionResult PizzaDelete(int? id)
         {
-            PizzaModel pizza = _repository.PizzaGetById(id);
-            return View(pizza);
+            if (id != null)
+            {
+                _repository.PizzaDelete(id);
+                _repository.Save();
+                return RedirectToAction("Index");
+            }
+            return NotFound();
+           
         }
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            _repository.PizzaDelete(id);
-            return RedirectToAction("Index");
-        }
-
-
+          
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

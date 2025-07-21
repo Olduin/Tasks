@@ -4,6 +4,8 @@
 @using TaskThree.Models;
 @model List<PizzaModel>;
 
+<a class="button-link-Edit">Добавить пиццу</a>
+
 <div class="my-flex-container">
     @foreach(var item in Model){
         <div class="flex-card">
@@ -14,6 +16,8 @@
                 <div class="card-price">@item.Price &#8381;</div>
                 <div class="card-weight">@item.Weight гр.</div>
                 <a href="#" class="button-link">В корзину</a>
+                <a data-id="@item.Id" class="button-link-Edit">Изменить</a>
+                <a data-id="@item.Id" class="button-link-Delete">Удалить</a>
             </div>
         </div>
     }
@@ -43,7 +47,6 @@
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-
             $('.card-name').on('click', function (e) {
                 const $card = $(this).closest('.flex-card');
                 const pizza = {
@@ -53,7 +56,6 @@
                     price: $card.find('.card-price').text(),
                     weight: $card.find('.card-weight').text()
                 };
-
                 ShowPizza(pizza);
             });
 
@@ -86,7 +88,40 @@
                 $('#modalWeight').text(pizza.weight);
                 $('#pizzaModal').modal('show');
             }
+                 
+            
+            
+            
+            $('.button-link-Edit').on('click', function(){
+                    var pizzaId = $(this).data('id');
+                if (pizzaId){
+                    var url='PizzaEdit/' + encodeURIComponent(pizzaId);
+
+                    location.href = url;
+                }
+                else{
+                     location.href = 'PizzaEdit/';
+                }
+            });
+
+                 $('.button-link-Delete').on('click', function (e) {
+                    const pizzaId = $(this).data('id');
+                    let IsDelete = confirm("Удалить элемент?");
+                    if (IsDelete == true){
+                         $.ajax({
+                        url: '/PizzaDelete',
+                        type: 'POST',
+                        data: { id: pizzaId },
+                        success: function () {
+
+                        },
+                        error: function () {
+                            alert('Ошибка при получении данных о пицце.');
+                        }
+                    })
+                    }
+            })
 
         </script>
-}   `
+}   
    
