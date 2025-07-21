@@ -3,16 +3,16 @@ using System.Diagnostics;
 using TaskThree;
 using TaskThree.Models;
 
-namespace TaskTwo.Controllers
+namespace TaskThree.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IRepository<PizzaModel> db;
+        private readonly IRepository<PizzaModel> _repository;
 
         public HomeController(ILogger<HomeController> logger, IRepository<PizzaModel> repository)
         {
-            db = repository;
+            _repository = repository;
             _logger = logger;
         }
 
@@ -22,7 +22,7 @@ namespace TaskTwo.Controllers
             _logger.LogInformation("Запрошен список всех пицц (JSON)");
             try
             {
-                var pizzas = db.PizzaGetAll();
+                var pizzas = _repository.PizzaGetAll();
                 if (pizzas == null)
                 {
                     _logger.LogWarning("Пиццы не найдены (PizzaGetAll вернул null)");
@@ -43,7 +43,7 @@ namespace TaskTwo.Controllers
             _logger.LogInformation("Запрошена пицца по ID: {PizzaId}", id);
             try
             {
-                var pizza = db.FindById(id);
+                var pizza = _repository.PizzaGetById(id);
                 if (pizza == null)
                 {
                     _logger.LogWarning("Пицца с ID {PizzaId} не найдена", id);
@@ -64,7 +64,7 @@ namespace TaskTwo.Controllers
             _logger.LogInformation("Открыта главная страница Index");
             try
             {
-                var model = db.PizzaGetAll();
+                var model = _repository.PizzaGetAll();
                 return View(model);
             }
             catch (Exception ex)
@@ -79,7 +79,7 @@ namespace TaskTwo.Controllers
             _logger.LogInformation("Открыта страница IndexNew");
             try
             {
-                var model = db.PizzaGetAll();
+                var model = _repository.PizzaGetAll();
                 return View(model);
             }
             catch (Exception ex)
@@ -94,7 +94,7 @@ namespace TaskTwo.Controllers
             _logger.LogInformation("Просмотр пиццы с ID: {PizzaId}", id);
             try
             {
-                var model = db.FindById(id);
+                var model = _repository.PizzaGetById(id);
                 if (model == null)
                 {
                     _logger.LogWarning("Пицца с ID {PizzaId} не найдена в Details", id);
@@ -113,6 +113,56 @@ namespace TaskTwo.Controllers
         {
             return View(PizzaGetAll());
         }
+
+        public IActionResult PizzaEdit()
+        {
+            return View();
+        }
+
+        public IActionResult PizzaEdit(int id)
+        {
+            var pizza = _repository.PizzaGetById(id);
+            return View(pizza);
+        }
+
+        [HttpPost]
+        public IActionResult PizzaEdit(PizzaModel pizza)
+        {
+            if (ModelState.IsValid)
+            {
+                _repository.PizzaUpdate(pizza);
+                _repository.Save();
+                return RedirectToAction("Index");
+            }
+            return View(pizza);
+        }
+
+        [HttpPost]
+        public IActionResult PizzaCreate(PizzaModel pizza)
+        {
+            if (ModelState.IsValid)
+            {
+                _repository.PizzaAdd(pizza);
+                _repository.Save();
+                return RedirectToAction("Index");
+            }
+            return View(pizza);
+        }
+
+        [HttpGet]
+        public ActionResult PizzaDelete(int id)
+        {
+            PizzaModel pizza = _repository.PizzaGetById(id);
+            return View(pizza);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            _repository.PizzaDelete(id);
+            return RedirectToAction("Index");
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

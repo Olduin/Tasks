@@ -3,33 +3,48 @@
 }
 @using TaskThree.Models;
 @model List<PizzaModel>;
+<div>
+    <a class="button-link-Edit">Добавить пиццу</a>
 
-<div class="my-flex-container">
-    @foreach(var item in Model)
-    {
-        <div class="flex-card">
-            <img id="my-img" class="card-img" data-id="@item.Id" src="@item.Image">
-            <a class="card-name"  href="Home/Details/@item.Id">@item.Name</a>
+    <div class="my-flex-container">
+        @foreach (var item in Model)
+        {
+            <div class="flex-card">
+                <img id="my-img" class="card-img" data-id="@item.Id" src="@item.Image">
+                <a class="card-name" href="Home/Details/@item.Id">@item.Name</a>
 
-            <div class="card-ingredients"> @item.Ingredients </div>
-            <div class="card-footer">
-                <div class="card-price">@item.Price &#8381;</div>
-                <div class="card-weight">@item.Weight гр.</div>
-                <a href="#" class="button-link">В корзину</a>
+                <div class="card-ingredients"> @item.Ingredients </div>
+                <div class="card-footer">
+                    <div class="card-price">@item.Price &#8381;</div>
+                    <div class="card-weight">@item.Weight гр.</div>
+                    <a href="#" class="button-link">В корзину</a>
+                </div>
             </div>
-        </div>
-    }
-</div>   
+        }
+    </div>
+</div>
+   
+@section scripts
+{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('.card-img').on('click', function(){
+            var pizzaId = $(this).data('id');
+            if (pizzaId){
+                var url='Home/Details/' + encodeURIComponent(pizzaId);
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $('.card-img').on('click', function(){
-        var pizzaId = $(this).data('id');
-        if (pizzaId){
-            var url='Home/Details/' + encodeURIComponent(pizzaId);
+                location.href = url;
+            }
 
-            location.href = url;
-        } 
-        
-    });   
-</script>
+        });
+    </script>
+
+    <script>
+        $('.button-link-Edit').on('click', function(){            
+                var url='Home/PizzaEdit/';
+                location.href = url;           
+
+        });
+    </script>
+
+}

@@ -92,8 +92,33 @@ body {
     border-radius: 20px;
 }
 
-    .button-link:hover {
-        background-color: white;
-        border-color: #80c142;
-        color: #80c142;
-    }
+.button-link:hover {
+    background-color: white;
+    border-color: #80c142;
+    color: #80c142;
+}
+
+.button-link-Edit {
+    border: 2px solid;
+    display: block;
+    padding: 10px 20px;
+    background-color: #80c142;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 20px;
+}
+.button-link-Edit:hover {
+    background-color: white;
+    border-color: #80c142;
+    color: #80c142;
+}
+
+input:invalid {
+    border-color: red;
+}
+
+input:valid {
+    border-color: green;
+}

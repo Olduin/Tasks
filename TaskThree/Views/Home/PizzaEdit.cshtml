@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+@using TaskThree.Models;
+@model PizzaModel;
+
+<div class="flex-card">
+    <form>
+        <fieldset>
+            <label for="image">Путь к изображению:</label>
+            <input class="card-img" type="text" placeholder=" " id="image" name="image" src="@Model.Image" required>
+            <br>
+            <label for="name">Название:</label>
+            <input class="card-name" type="text" placeholder=" " id="name" name="name">
+            <br>
+            <label for="ingredients">Ингредиенты:</label>
+            <input class="card-ingredients" type="text" placeholder=" " id="ingredients" name="ingredients" required>
+            <br>
+            <label for="price">Цена:</label>
+            <input class="card-price" type="number" placeholder=" " id="price" name="price" required>
+            <br>
+            <label for="weight">Вес:</label>
+            <input class="card-weight" type="number" placeholder=" " id="weight" name="weight" required>
+            <br>
+
+            <button class="button-link">Сохранить</button>
+        </fieldset>
+    </form>
+    
+</div>

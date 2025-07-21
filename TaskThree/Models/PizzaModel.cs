@@ -10,7 +10,16 @@
         public string Ingredients { get; set; }
         public int Price { get; set; }
 
-        public string Weight { get; set; }
+        public int Weight { get; set; }
 
+        //public PizzaModel(PizzaModel pizzaModel)
+        //{
+        //    Id = pizzaModel.Id;
+        //    Name = pizzaModel.Name;
+        //    Image = pizzaModel.Image;
+        //    Ingredients = pizzaModel.Ingredients;
+        //    Price = pizzaModel.Price;
+        //    Weight = pizzaModel.Weight;
+        //}
     }
 }
