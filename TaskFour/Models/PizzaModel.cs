@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TaskFour.Models
 {
+   
     public class PizzaModel
     {
         [Key]
@@ -12,10 +14,7 @@ namespace TaskFour.Models
         public int Price { get; set; }
         public int Weight { get; set; }
         
-        public PizzaModel()
-        {
-
-        }
+        public PizzaModel() { }
 
         public PizzaModel(PizzaModel pizzaModel)
         {

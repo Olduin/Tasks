@@ -5,17 +5,17 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
+        var _builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-        builder.Services.AddControllersWithViews();
-        builder.Services.AddScoped<IRepository<PizzaModel>, Repository>();
+        _builder.Services.AddControllersWithViews();
+        _builder.Services.AddScoped<IRepository<PizzaModel>, Repository>();
 
-        builder.Logging.ClearProviders();
-        builder.Logging.AddConsole();
-        builder.Logging.AddFile("C:/Temp/TestProject/app.log");
+        _builder.Logging.ClearProviders();
+        _builder.Logging.AddConsole();
+        _builder.Logging.AddFile("C:/Temp/TestProject/app.log");
 
-        var app = builder.Build();
+        var app = _builder.Build();
 
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())

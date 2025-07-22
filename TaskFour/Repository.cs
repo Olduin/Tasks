@@ -13,15 +13,16 @@ namespace TaskFour
         void Save();
 
     }
+
     public class Repository : IRepository<PizzaModel>
     {
         private readonly ILogger<Repository> _logger;
 
-        private PizzaContext _pizzaContext;
+        private PizzaTestContext _pizzaContext;
 
         public Repository( ILogger<Repository> logger)
         {
-            _pizzaContext = new PizzaContext();
+            _pizzaContext = new PizzaTestContext();
             _logger = logger;
         }
 

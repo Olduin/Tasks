@@ -134,21 +134,21 @@ namespace TaskThree.Controllers
                 if (pizza.Id.HasValue)
                 {
                     //Обновление
-                    var _item = _repository.PizzaGetById(pizza.Id.Value);
-                    if (_item != null)
+                    var item = _repository.PizzaGetById(pizza.Id.Value);
+                    if (item != null)
                     {
-                        _item.Name = pizza.Name;
-                        _item.Ingredients = pizza.Ingredients;
-                        _item.Image = pizza.Image;
-                        _item.Weight = pizza.Weight;
-                        _item.Price = pizza.Price;
+                        item.Name = pizza.Name;
+                        item.Ingredients = pizza.Ingredients;
+                        item.Image = pizza.Image;
+                        item.Weight = pizza.Weight;
+                        item.Price = pizza.Price;
                     }
                 }
                 else
                 {
                     //Добавление
-                    var _newItem = new PizzaModel(pizza);
-                    _repository.PizzaAdd(_newItem);
+                    var newItem = new PizzaModel(pizza);
+                    _repository.PizzaAdd(newItem);
                 }
                 _repository.Save();
                 return RedirectToAction("Index");
