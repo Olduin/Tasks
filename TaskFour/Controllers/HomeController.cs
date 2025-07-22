@@ -111,7 +111,18 @@ namespace TaskThree.Controllers
 
         public IActionResult Privacy()
         {
-            return View(PizzaGetAll());
+            _logger.LogInformation("Открыта страница Privacy");
+            try
+            {
+                var model = _repository.PizzaGetAll();
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка в Privacy");
+                return View("Error");
+            }
+            //return View(PizzaGetAll());
         }
 
         [HttpGet]
@@ -151,14 +162,13 @@ namespace TaskThree.Controllers
                 }
                 _repository.Save();
                 return RedirectToAction("Index");
-
             }
             return View(pizza);
         }
 
         [HttpPost]
         public ActionResult PizzaDelete(int? id)
-        {
+        {            
             if (id != null)
             {
                 _repository.PizzaDelete(id);
@@ -166,7 +176,6 @@ namespace TaskThree.Controllers
                 return RedirectToAction("Index");
             }
             return NotFound();
-
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -34,7 +34,6 @@ $.ajax({
     dataType: "json",
     success: function (data) {
         generatePizzaCards(data);
-
     },
     error: function () {
         console.error("Ошибка при получении списка пицц");
