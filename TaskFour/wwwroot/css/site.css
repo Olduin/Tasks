@@ -51,14 +51,15 @@ body {
 
 .card-name {
     font-family: Calibri;
-    font-size: 20px;
+    font-size: 23px;
     font-weight: bold;
     color: grey;
+    text-decoration: none;
 }
 
 .card-ingredients {
     font-family: Calibri;
-    font-size: 15px;
+    font-size: 16px;
     height: 100px;
 }
 
@@ -92,11 +93,11 @@ body {
     border-radius: 20px;
 }
 
-    .button-link:hover {
-        background-color: white;
-        border-color: #80c142;
-        color: #80c142;
-    }
+ .button-link:hover {
+     background-color: white;
+     border-color: #80c142;
+     color: #80c142;
+ }
 
 .button-link-Edit {
     border: 2px solid;
@@ -110,11 +111,11 @@ body {
     border-radius: 20px;
 }
 
-    .button-link-Edit:hover {
-        background-color: white;
-        border-color: #80c142;
-        color: #80c142;
-    }
+.button-link-Edit:hover {
+    background-color: white;
+    border-color: #80c142;
+    color: #80c142;
+}
 
 .button-link-Delete {
     border: 2px solid;
@@ -128,12 +129,12 @@ body {
     border-radius: 20px;
 }
 
-    .button-link-Delete:hover {
-        border: 2px solid;
-        background-color: white;
-        border-color: darkred;
-        color: darkred;
-    }
+.button-link-Delete:hover {
+    border: 2px solid;
+    background-color: white;
+    border-color: darkred;
+    color: darkred;
+}
 
 input:invalid {
     border-color: red;

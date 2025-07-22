@@ -123,7 +123,6 @@ namespace TaskThree.Controllers
                 pizza = _repository.PizzaGetById(id);
             }
             return View(pizza);
-
         }
 
         [HttpPost]
